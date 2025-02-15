@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * Fired during plugin activation
+ *
+ * @link       https://jackone
+ * @since      1.0.0
+ *
+ * @package    Wordpressboiler
+ * @subpackage Wordpressboiler/includes
+ */
+
+/**
+ * Fired during plugin activation.
+ *
+ * This class defines all code necessary to run during the plugin's activation.
+ *
+ * @since      1.0.0
+ * @package    Wordpressboiler
+ * @subpackage Wordpressboiler/includes
+ * @author     jackones <jackone@gmail.com>
+ */
+class Wordpressboiler_Activator {
+
+	/**
+	 * Short Description. (use period)
+	 *
+	 * Long Description.
+	 *
+	 * @since    1.0.0
+	 */
+	public function activate() {
+		global $wpdb;
+	
+		$table_name = $this->wp_owt_tbl_books(); // Get the table name dynamically
+	
+		// Corrected query to check if the table exists
+		if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
+	
+			// Dynamic table creation SQL query
+			$table_query = "CREATE TABLE `{$table_name}` (
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`name` varchar(150) DEFAULT NULL,
+				`account` int(11) DEFAULT NULL,
+				`description` text DEFAULT NULL,
+				`book_image` varchar(200) DEFAULT NULL,
+				`language` varchar(150) DEFAULT NULL,
+				`status` int(11) NOT NULL DEFAULT 1,
+				`created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
+	
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+			dbDelta($table_query);
+		}
+	}
+	
+	// Function to return table name with prefix
+	public function wp_owt_tbl_books() {
+		global $wpdb;
+		return $wpdb->prefix . "owt_tbl_books";  //$wpdb->prefix => wp_
+	}
+}	
