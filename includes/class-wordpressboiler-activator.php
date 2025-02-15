@@ -78,6 +78,31 @@ class Wordpressboiler_Activator {
 			  $wpdb->query($insert_query);
 		}
 
+		// creata page on plugin activation
+
+		$get_data = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT * from ".$wpdb->prefix."posts WHERE post_name = %s", 'book-tool'
+			)
+			);
+
+			if(!empty($get_data)){
+				//already we have data with this post name
+			}else{
+				// create page
+
+				$post_arr_data = array(
+					'post_title' => "Book Tool",
+					"Post_name"  => "book_tool",
+					"post_status" => "publish",
+					"post_author" => 1,
+					"post_content" => "Simple page content of Book Tool",
+					"post_type" => "page"
+				);
+
+				wp_insert_post($post_arr_data);
+			}
+
 	}
 	
 	// Function to return table name with prefix
