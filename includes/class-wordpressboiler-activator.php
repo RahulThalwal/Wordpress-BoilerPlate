@@ -45,6 +45,7 @@ class Wordpressboiler_Activator {
 				`description` text DEFAULT NULL,
 				`book_image` varchar(200) DEFAULT NULL,
 				`language` varchar(150) DEFAULT NULL,
+				`shelf_id` INT NULL, 
 				`status` int(11) NOT NULL DEFAULT 1,
 				`created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
 				PRIMARY KEY (`id`)
@@ -53,6 +54,30 @@ class Wordpressboiler_Activator {
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta($table_query);
 		}
+
+        if($wpdb->get_var("SHOW TABLES LIKE '".$this->wp_owt_tbl_book_shelf() . "'") != $this->wp_owt_tbl_book_shelf()) {
+		$shelf_table =	"CREATE TABLE `".$this->wp_owt_tbl_book_shelf()."` (
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`shelf_name` varchar(150) NOT NULL,
+				`capacity` int(11) NOT NULL,
+				`shelf_location` varchar(200) NOT NULL,
+				`status` int(11) NOT NULL DEFAULT 1,
+				`created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+				PRIMARY KEY (`id`)
+			  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
+
+      require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+      dbDelta($shelf_table);
+
+  $insert_query = "INSERT INTO " .$this->wp_owt_tbl_book_shelf()."
+  (shelf_name,capacity,shelf_location,status) VALUES 
+  ('Shelf 1', 230, 'Left Corner', 1),
+  ('Shelf 2', 250, 'Right Corner', 1),
+  ('Shelf 3', 350, 'Center Top', 1)";
+
+			  $wpdb->query($insert_query);
+		}
+
 	}
 	
 	// Function to return table name with prefix
@@ -60,4 +85,13 @@ class Wordpressboiler_Activator {
 		global $wpdb;
 		return $wpdb->prefix . "owt_tbl_books";  //$wpdb->prefix => wp_
 	}
+
+  public function wp_owt_tbl_book_shelf(){
+	global $wpdb;
+	return $wpdb->prefix."owt_tbl_book_shelf";
+  }
+
+
 }	
+
+

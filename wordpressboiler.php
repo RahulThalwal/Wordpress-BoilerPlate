@@ -53,8 +53,13 @@ function activate_wordpressboiler() {
  * This action is documented in includes/class-wordpressboiler-deactivator.php
  */
 function deactivate_wordpressboiler() {
+
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpressboiler-activator.php';
+	$activator = new WordPressBoiler_Activator();
+
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpressboiler-deactivator.php';
-	Wordpressboiler_Deactivator::deactivate();
+	$deactivator = new Wordpressboiler_Deactivator($activator);
+	$deactivator-> deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_wordpressboiler' );

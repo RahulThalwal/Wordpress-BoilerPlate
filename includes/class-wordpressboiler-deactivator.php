@@ -29,7 +29,20 @@ class Wordpressboiler_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
+
+
+	private $table_activator;
+
+	public function __construct($activator){
+		$this->table_activator = $activator;
+	}
+	public function deactivate() {
+
+		global $wpdb;
+
+		//dropping tables on plugin uninstall
+		$wpdb->query("DROP TABLE IF EXISTS ".$this->table_activator->wp_owt_tbl_books());
+		$wpdb->query("DROP TABLE IF EXISTS ".$this->table_activator->wp_owt_tbl_book_shelf());
 
 	}
 
