@@ -61,19 +61,26 @@ class Wordpressboiler_Admin {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Wordpressboiler_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Wordpressboiler_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wordpressboiler-admin.css', array(), $this->version, 'all' );
+		$valid_pages = array ("book_management_tool","book_management_create_book","book_managment_list_dashboard");
+
+
+		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : ""; 
+
+		if(in_array($page, $valid_pages)){
+
+			// adding css files in valid pages
+
+		wp_enqueue_style( "owt-bootstrap", WORDPRESSBOILER_PLUGIN_URL . 'assets/css/bootstrap.min.css', array(), $this->version, 'all' );
+
+		wp_enqueue_style( "owt-datatable", WORDPRESSBOILER_PLUGIN_URL . 'assets/css/dataTables.dataTables.min.css', array(), $this->version, 'all' );
+		
+		wp_enqueue_style( "owt-sweetalert", WORDPRESSBOILER_PLUGIN_URL . 'assets/css/sweetalert.css', array(), $this->version, 'all' );
+		}
+    
+		
+
+		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wordpressboiler-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -84,19 +91,29 @@ class Wordpressboiler_Admin {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Wordpressboiler_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Wordpressboiler_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+
+		$valid_pages = array ("book_management_tool","book_management_create_book","book_managment_list_dashboard");
+
+
+		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : ""; 
+
+		if(in_array($page, $valid_pages)){
+
+
+			wp_enqueue_script("jquery");
+		
+		wp_enqueue_script( "owt-bootstrap-js", WORDPRESSBOILER_PLUGIN_URL . 'assets/js/bootstrap.min.js', array( 'jquery' ), $this->version, false );
+
+
+		wp_enqueue_script( "owt-datatable-js", WORDPRESSBOILER_PLUGIN_URL . 'assets/js/dataTables.min.js', array( 'jquery' ), $this->version, false );
+
+		wp_enqueue_script( "owt-validate-js", WORDPRESSBOILER_PLUGIN_URL . 'assets/js/jquery.validate.min.js', array( 'jquery' ), $this->version, false );
+
+		wp_enqueue_script( "owt-sweetalert-js", WORDPRESSBOILER_PLUGIN_URL . 'assets/js/sweetalert.min.js', array( 'jquery' ), $this->version, false );
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wordpressboiler-admin.js', array( 'jquery' ), $this->version, false );
+
+		}
 
 	}
 

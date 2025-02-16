@@ -82,7 +82,7 @@ class Wordpressboiler_Activator {
 
 		$get_data = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT * from ".$wpdb->prefix."posts WHERE post_name = %s", 'book-tool'
+				"SELECT * from ".$wpdb->prefix."posts WHERE post_name = %s", 'book_tool'
 			)
 			);
 
