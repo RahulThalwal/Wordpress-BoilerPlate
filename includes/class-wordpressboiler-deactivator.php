@@ -51,11 +51,11 @@ class Wordpressboiler_Deactivator {
 			)
 			);
 
-			if($get_data && $page_id = $get_data->ID ) {
-				if (get_post ($page_id)) {
-					wp_delete_post($page_id, true);  //Delete the matched post 
-				}
-			}
+			// if($get_data && $page_id = $get_data->ID ) {
+			// 	if (get_post ($page_id)) {
+			// 		wp_delete_post($page_id, true);  //Delete the matched post 
+			// 	}
+			// }
 	}
 
 }

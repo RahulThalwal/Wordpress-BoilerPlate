@@ -71,16 +71,14 @@ class Wordpressboiler_Admin {
 
 			// adding css files in valid pages
 
-		wp_enqueue_style( "owt-bootstrap", WORDPRESSBOILER_PLUGIN_URL . 'assets/css/bootstrap.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( "owt-bootstrap","https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css", array(), $this->version, 'all' );
 
 		wp_enqueue_style( "owt-datatable", WORDPRESSBOILER_PLUGIN_URL . 'assets/css/dataTables.dataTables.min.css', array(), $this->version, 'all' );
 		
 		wp_enqueue_style( "owt-sweetalert", WORDPRESSBOILER_PLUGIN_URL . 'assets/css/sweetalert.css', array(), $this->version, 'all' );
 		}
     
-		
-
-		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wordpressboiler-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wordpressboiler-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -119,10 +117,10 @@ class Wordpressboiler_Admin {
 
    // create menu method
 	public function book_management_menu(){
-		add_menu_page("Book Management Tool", "Preference", "manage_options","book_management_tool", array($this,"book_management_plugin1"));
+		add_menu_page("Book Management Tool", "Preference", "manage_options","book_management_tool", array($this,"book_management_tool"));
 
 		// create sunmenu
-		add_submenu_page("book_management_tool","Dashboard","Dashboard", "manage_options","book_management_tool", array($this,"book_management_plugin1"));
+		add_submenu_page("book_management_tool","Dashboard","Dashboard", "manage_options","book_management_tool", array($this,"book_management_tool"));
  
 
 		add_submenu_page("book_management_tool","Create Book","Create Book","manage_options","book_management_create_book",array($this,"book_management_create_book") 
@@ -138,8 +136,13 @@ class Wordpressboiler_Admin {
    
 
 	// menu callback function 
-	public function book_management_plugin1(){
-		echo "<h1>welcome to plugin  </h1>";
+	public function book_management_tool(){
+
+		ob_start();    // Started buffer
+		include_once(WORDPRESSBOILER_PLUGIN_PATH."admin/partials/tmpl-create-book.php"); // included template file
+	    $template =	ob_get_contents();  // reading content
+		ob_end_clean();    // cloasing and cleaning buffer
+		echo $template;
 	}
 
 	public function book_management_create_book(){
