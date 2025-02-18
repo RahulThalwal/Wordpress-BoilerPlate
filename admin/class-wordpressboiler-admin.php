@@ -73,7 +73,7 @@ class Wordpressboiler_Admin {
 
 		wp_enqueue_style( "owt-bootstrap","https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css", array(), $this->version, 'all' );
 
-		wp_enqueue_style( "owt-datatable", WORDPRESSBOILER_PLUGIN_URL . 'assets/css/dataTables.dataTables.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( "owt-datatable", "https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css", array(), $this->version, 'all' );
 		
 		wp_enqueue_style( "owt-sweetalert", WORDPRESSBOILER_PLUGIN_URL . 'assets/css/sweetalert.css', array(), $this->version, 'all' );
 		}
@@ -98,12 +98,12 @@ class Wordpressboiler_Admin {
 		if(in_array($page, $valid_pages)){
 
 
-			wp_enqueue_script("jquery");
+			wp_enqueue_script('jquery');
 		
 		wp_enqueue_script( "owt-bootstrap-js", WORDPRESSBOILER_PLUGIN_URL . 'assets/js/bootstrap.min.js', array( 'jquery' ), $this->version, false );
 
 
-		wp_enqueue_script( "owt-datatable-js", WORDPRESSBOILER_PLUGIN_URL . 'assets/js/dataTables.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( "owt-datatable-js", "https://cdn.datatables.net/2.2.2/js/dataTables.min.js", array( 'jquery' ), $this->version, false );
 
 		wp_enqueue_script( "owt-validate-js", WORDPRESSBOILER_PLUGIN_URL . 'assets/js/jquery.validate.min.js', array( 'jquery' ), $this->version, false );
 
@@ -122,10 +122,13 @@ class Wordpressboiler_Admin {
 		// create sunmenu
 		add_submenu_page("book_management_tool","Dashboard","Dashboard", "manage_options","book_management_tool", array($this,"book_management_tool"));
  
+		
 
-		add_submenu_page("book_management_tool","Create Book","Create Book","manage_options","book_management_create_book",array($this,"book_management_create_book") 
+		add_submenu_page("book_management_tool","Create Book Shelf","Create Book Shelf","manage_options","book_management_create_book_shelf",array($this,"book_management_create_book_shelf"));
 
-		);
+		add_submenu_page("book_management_tool","List Book Shelf","List Book Shelf","manage_options","book_management_list_book_shelf",array($this,"book_management_list_book_shelf"));
+
+		add_submenu_page("book_management_tool","Create Book","Create Book","manage_options","book_management_create_book",array($this,"book_management_create_book"));
 
 		add_submenu_page("book_management_tool","List Book","List Book","manage_options","book_managment_list_dashboard",array($this,"callback_for_list_dashboard") 
 
@@ -138,6 +141,12 @@ class Wordpressboiler_Admin {
 	// menu callback function 
 	public function book_management_tool(){
 
+		echo "<h1>welcome to dashboard book  </h1>";
+	}
+
+	public function book_management_create_book(){
+		
+
 		ob_start();    // Started buffer
 		include_once(WORDPRESSBOILER_PLUGIN_PATH."admin/partials/tmpl-create-book.php"); // included template file
 	    $template =	ob_get_contents();  // reading content
@@ -145,16 +154,12 @@ class Wordpressboiler_Admin {
 		echo $template;
 	}
 
-	public function book_management_create_book(){
-		echo "<h1>welcome to create book  </h1>";
-	}
-
 	public function  callback_for_list_dashboard(){
 		global $wpdb;
-// $wppb->get_var   for single value from database
-// $wppb->get_row   for row data
-//$wppb->get_col    for row data
-// $wpdb->results   for all the table data
+          // $wppb->get_var   for single value from database
+          // $wppb->get_row   for row data
+          //$wppb->get_col    for row data
+        // $wpdb->results   for all the table data
 		// $user_email = $wpdb->get_row("SELECT * from wp_users WHERE ID = 1", ARRAY_N );
 		// echo "<pre>";
 		// print_r ($user_email);
@@ -163,7 +168,11 @@ class Wordpressboiler_Admin {
 		// echo "<pre>";
 		// print_r($post_title);
 
-      
+		ob_start();    // Started buffer
+		include_once(WORDPRESSBOILER_PLUGIN_PATH."admin/partials/tmpl-list-books.php"); // included template file
+	    $template =	ob_get_contents();  // reading content
+		ob_end_clean();    // cloasing and cleaning buffer
+		echo $template;
 
 	}
 
