@@ -62,7 +62,7 @@ class Wordpressboiler_Admin {
 	public function enqueue_styles() {
 
 
-		$valid_pages = array ("book_management_tool","book_management_create_book","book_managment_list_dashboard");
+		$valid_pages = array ("book_management_tool","book_management_create_book","book_managment_list_dashboard","book_management_create_book_shelf","book_management_list_book_shelf");
 
 
 		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : ""; 
@@ -90,7 +90,7 @@ class Wordpressboiler_Admin {
 	public function enqueue_scripts() {
 
 
-		$valid_pages = array ("book_management_tool","book_management_create_book","book_managment_list_dashboard");
+		$valid_pages = array ("book_management_tool","book_management_create_book","book_managment_list_dashboard","book_management_create_book_shelf","book_management_list_book_shelf");
 
 
 		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : ""; 
@@ -144,6 +144,26 @@ class Wordpressboiler_Admin {
 		echo "<h1>welcome to dashboard book  </h1>";
 	}
 
+
+
+
+	// create book shelf layout
+	public function book_management_create_book_shelf(){
+		ob_start();    // Started buffer
+		include_once(WORDPRESSBOILER_PLUGIN_PATH."admin/partials/tmpl-create-book-shelf.php"); // included template file
+	    $template =	ob_get_contents();  // reading content
+		ob_end_clean();    // cloasing and cleaning buffer
+		echo $template;
+	}
+
+
+	public function book_management_list_book_shelf(){
+		ob_start();    // Started buffer
+		include_once(WORDPRESSBOILER_PLUGIN_PATH."admin/partials/tmpl-list-book-shelf.php"); // included template file
+	    $template =	ob_get_contents();  // reading content
+		ob_end_clean();    // cloasing and cleaning buffer
+		echo $template;
+	}
 	public function book_management_create_book(){
 		
 
