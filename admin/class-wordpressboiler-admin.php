@@ -40,6 +40,7 @@ class Wordpressboiler_Admin {
 	 */
 	private $version;
 
+	private $table_activator;
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -51,6 +52,10 @@ class Wordpressboiler_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+
+		require_once WORDPRESSBOILER_PLUGIN_PATH . 'includes/class-wordpressboiler-activator.php';
+	$activator = new WordPressBoiler_Activator();
+		$this->table_activator = $activator;
 
 	}
 
@@ -204,6 +209,8 @@ class Wordpressboiler_Admin {
 
 
 	public function handle_ajax_requests_admin(){
+
+		global $wpdb;
 		// handles all ajax request of admin
 		$param = isset($_REQUEST['param']) ? $_REQUEST['param'] : "";
 
@@ -218,6 +225,38 @@ class Wordpressboiler_Admin {
 						"author" => "rahul"
 					)
 					));
+			}elseif($param == "create_book_shelf"){
+
+				// get all data from form
+				$name= isset($_REQUEST['txt_name']) ? $_REQUEST['txt_name']: "";
+
+				$capacity= isset($_REQUEST['txt_capacity']) ? $_REQUEST['txt_capacity']: "";
+				$location= isset($_REQUEST['txt_location']) ? $_REQUEST['txt_location']: "";
+				$status= isset($_REQUEST['dd_status']) ? $_REQUEST['dd_status']: "";
+
+				$wpdb->insert($this->table_activator->wp_owt_tbl_book_shelf(
+
+				),
+			array(
+
+				"shelf_name" => $name,
+				"capacity"=> $capacity,
+				"shelf_location" => $location,
+				"status"=>$status
+			));
+
+			if ($wpdb ->insert_id > 0){
+
+				echo json_encode(array(
+					"status" => 1,
+					"message" => "Book Shelf created successfully"
+				));
+			}else{
+				echo json_encode(array(
+					"status" => 0,
+					"message" => "Failed to ceate a book shelf"
+				));
+			}
 			}
 		}
 		wp_die();

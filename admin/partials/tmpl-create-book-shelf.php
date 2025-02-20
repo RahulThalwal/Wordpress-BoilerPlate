@@ -9,14 +9,14 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="txt_name">Name:</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="txt_name" id="txt_name"
+                        <input type="text" required="" class="form-control" name="txt_name" id="txt_name"
                             placeholder="Enter Book Shelf Name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="txt_capacity">Capacity</label>
                     <div class="col-sm-5">
-                        <input type="number" min="1" class="form-control" name="txt_capacity" id="txt_capacity"
+                        <input type="number" required min="1" required class="form-control" name="txt_capacity" id="txt_capacity"
                             placeholder="Enter Capacity">
                     </div>
                 </div>
@@ -37,19 +37,10 @@
                     <label class="control-label col-sm-2" for="dd_status">Status</label>
                     <div class="col-sm-5">
                         <select class="form-control" name="dd_status">
-                            <option value="active"> Active </option>
-                            <option value="Inctive"> Inactive </option>
+                            <option value="1"> Active </option>
+                            <option value="0"> Inactive </option>
 
                         </select>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-5">
-                        <div class="checkbox">
-                            <label><input type="checkbox"> Remember me</label>
-                        </div>
                     </div>
                 </div>
                 <div class="form-group">
