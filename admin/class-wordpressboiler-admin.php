@@ -111,6 +111,12 @@ class Wordpressboiler_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wordpressboiler-admin.js', array( 'jquery' ), $this->version, false );
 
+		wp_localize_script($this->plugin_name,"owt_book",array(
+			"name"=>"WordpressBoiler",
+			"author"=> "rahul",
+			"ajaxurl"=> admin_url("admin-ajax.php")
+		));
+
 		}
 
 	}
@@ -194,6 +200,27 @@ class Wordpressboiler_Admin {
 		ob_end_clean();    // cloasing and cleaning buffer
 		echo $template;
 
+	}
+
+
+	public function handle_ajax_requests_admin(){
+		// handles all ajax request of admin
+		$param = isset($_REQUEST['param']) ? $_REQUEST['param'] : "";
+
+		if(!empty($param)){
+			if($param == "first_simple_ajax"){
+
+				echo json_encode(array(
+					"status" => 1, 
+					"message"=> "First Ajax Request",
+					"data" => array(
+						"name"=> "Wordpreesboiler",
+						"author" => "rahul"
+					)
+					));
+			}
+		}
+		wp_die();
 	}
 
 };

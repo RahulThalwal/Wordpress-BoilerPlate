@@ -1,7 +1,9 @@
 <div class="row" style="margin-top:20px; margin-right: 23px; margin-left: 13px;">
     <div class="col-sm-5"></div>
     <div class="panel panel-primary">
-        <div class="panel-heading">Create Book Shelf</div>
+        <div class="panel-heading">Create Book Shelf
+            <button class="btn btn-warning pull-right"  id="btn-first-ajax" style="margin-top: -7px;">First Ajax Request</button>
+        </div>
         <div class="panel-body">
             <form class="form-horizontal" action="javascript:void(0)" id="frm-add-book-shelf">
                 <div class="form-group">
