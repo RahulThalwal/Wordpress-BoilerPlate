@@ -148,15 +148,11 @@ class Wordpressboiler_Admin {
 	}
 
    
-
 	// menu callback function 
 	public function book_management_tool(){
 
 		echo "<h1>welcome to dashboard book  </h1>";
 	}
-
-
-
 
 	// create book shelf layout
 	public function book_management_create_book_shelf(){
@@ -169,6 +165,19 @@ class Wordpressboiler_Admin {
 
 
 	public function book_management_list_book_shelf(){
+
+
+		global $wpdb;
+
+		$book_shelf = $wpdb->get_results(
+
+			$wpdb->prepare(
+				"SELECT * FROM ".$this->table_activator-> wp_owt_tbl_book_shelf(), ""
+			)
+		);
+
+		print_r($book_shelf);
+
 		ob_start();    // Started buffer
 		include_once(WORDPRESSBOILER_PLUGIN_PATH."admin/partials/tmpl-list-book-shelf.php"); // included template file
 	    $template =	ob_get_contents();  // reading content
@@ -257,6 +266,26 @@ class Wordpressboiler_Admin {
 					"message" => "Failed to ceate a book shelf"
 				));
 			}
+			}elseif($param == "delete_book_shelf"){
+				$shelf_id = isset($_REQUEST['shelf_id']) ? intval($_REQUEST['shelf_id']) : 0;
+
+				if($shelf_id > 0){
+
+					$wpdb->delete($this->table_activator->wp_owt_tbl_book_shelf(), array(
+						"id"=> $shelf_id
+					));
+					echo json_encode(array(
+						"status" =>1,
+						"message"=> "Book shelf deleted successfully"
+
+					));
+				}else{
+					echo json_encode(array(
+						"status" =>0,
+						"message"=> "Book shelf is not valid"
+
+					));
+				}
 			}
 		}
 		wp_die();
