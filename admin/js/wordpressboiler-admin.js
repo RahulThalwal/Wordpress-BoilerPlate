@@ -10,6 +10,30 @@ jQuery(function(){
 		jQuery('#tbl-list-book-shelf').DataTable();
 	}
 
+
+	jQuery("#frm-create-book").validate({
+		submitHandler: function(){
+
+			var postdata = jQuery("#frm-create-book").serialize();
+			postdata += "&action=admin_ajax_request&param=create_book";
+
+			jQuery.post(ajaxurl,postdata,function(response){
+//console.log(response);
+
+				var data = jQuery.parseJSON(response);
+
+				if(data.status == 1){
+					alert(data.message);
+
+					setTimeout(function(){
+						location.reload();
+					}, 1000);
+				}
+			});
+
+		}
+	});
+
 	// delete book shelf row from dataTable
 	jQuery(document).on("click",".btn-delete-book-shelf", function(){
 

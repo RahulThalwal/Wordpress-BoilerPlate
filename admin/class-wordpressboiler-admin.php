@@ -186,6 +186,15 @@ class Wordpressboiler_Admin {
 	}
 	public function book_management_create_book(){
 		
+		global $wpdb;
+
+		$book_shelf = $wpdb->get_results(
+
+			$wpdb->prepare(
+				"SELECT id, shelf_name FROM ".$this->table_activator-> wp_owt_tbl_book_shelf(), ""
+			)
+		);
+
 
 		ob_start();    // Started buffer
 		include_once(WORDPRESSBOILER_PLUGIN_PATH."admin/partials/tmpl-create-book.php"); // included template file
@@ -284,6 +293,47 @@ class Wordpressboiler_Admin {
 						"status" =>0,
 						"message"=> "Book shelf is not valid"
 
+					));
+				}
+			}elseif($param = "create_book"){
+
+				//print_r($_REQUEST);die;
+			   
+				$shelf_id = isset($_REQUEST['dd_book_shelf']) ? intval($_REQUEST['dd_book_shelf']): 0;
+
+				$txt_name = isset($_REQUEST['txt_name']) ?  $_REQUEST['txt_name']: "";
+
+				$txt_email = isset($_REQUEST['txt_email']) ? $_REQUEST['txt_email']: "";
+
+				$txt_publication = isset($_REQUEST['txt_publication']) ? $_REQUEST['txt_publication']: "";
+
+				$text_description = isset($_REQUEST['text_description']) ? $_REQUEST['text_description']: "";
+
+				$txt_cost = isset($_REQUEST['txt_cost']) ? intval($_REQUEST['txt_cost']): 0;
+
+				$dd_status = isset($_REQUEST['dd_status']) ? intval($_REQUEST['dd_status']): 0;
+
+				$wpdb->insert($this->table_activator->wp_owt_tbl_books(), array(
+					"name" => strtolower($txt_name),
+					"amount" => $txt_cost,
+					"description" => $text_description,
+					"email" => $txt_email,
+					"shelf_id" => $shelf_id,
+					"status" => $dd_status
+				));
+
+				if($wpdb-> insert_id > 0){
+
+					echo json_encode(array(
+
+						"status" => 1,
+						"message" => "Book created successfully"
+					));
+				}else{
+					echo json_encode(array(
+
+						"status" => 0,
+						"message" => "Failed to create book"
 					));
 				}
 			}
