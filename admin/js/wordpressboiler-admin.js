@@ -11,6 +11,18 @@ jQuery(function(){
 	}
 
 
+	jQuery(document).on("click", "#txt_image", function(){
+
+		var image = wp.media({
+			title: "Upload Book Image",
+			multiple: false
+		}).open();
+	})
+
+
+
+
+
 	jQuery("#frm-create-book").validate({
 		submitHandler: function(){
 

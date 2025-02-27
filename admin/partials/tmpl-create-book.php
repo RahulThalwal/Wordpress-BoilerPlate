@@ -1,3 +1,9 @@
+<?php 
+wp_enqueue_media();
+
+
+?>
+
 <div class="row" style="margin-top:20px; margin-right: 23px; margin-left: 13px;">
     <div class="col-sm-5"></div>
     <div class="panel panel-primary">
@@ -51,7 +57,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="txt_image">Book Image</label>
                     <div class="col-sm-5">
-                        <input type="file" class="form-control" id="txt_image" name="txt_image">
+                        <input type="button" type="button" value="Upload image"class="form-control" id="txt_image" name="txt_image">
                     </div>
                 </div>
                 <div class="form-group">
