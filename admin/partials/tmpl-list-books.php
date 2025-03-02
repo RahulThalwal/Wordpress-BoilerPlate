@@ -16,6 +16,40 @@
                         <th>Action</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <?php 
+                    if(count($books_data) > 0 ){
+                        foreach($books_data as $key => $value) {
+                            ?>
+                    <tr>
+                        <td><?php echo $value->id; ?> </td>
+                        <td><?php echo strtoupper($value->name) ; ?> </td>
+                        <td><?php echo $value->email; ?> </td>
+                        <td><?php echo !empty($value->publication) ? $value->publication : "<i> No Publication <i/>"  ; ?> </td>
+                        <td>
+                            <?php 
+                                    if(!empty($value->book_image)){
+                                        ?>
+                            <img src="<?php echo $value->book_image; ?> " style="height: 50px; width: 50px;" />
+                            <?php
+
+                                    }else{
+                                        echo "<i>No Image </i>";
+                                    }
+                                    ?>
+
+                        </td>
+                        <td><?php echo $value->amount; ?> </td>
+                        <td><?php echo $value->status == 1 ? "<button class= 'btn btn-success'>Active</button>":"<button class= 'btn btn-danger'>Inactive</button>"; ?></td>
+                        <td>
+                            <button class="btn btn-danger" >Delete</button>
+                         </td>
+                    </tr>
+                    <?php
+                        }
+                    }
+                    ?>
+                    </tobdy>
                 <tfoot>
                     <tr>
                         <th>#ID</th>

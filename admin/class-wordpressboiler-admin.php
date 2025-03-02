@@ -217,6 +217,18 @@ class Wordpressboiler_Admin {
 		// echo "<pre>";
 		// print_r($post_title);
 
+		global $wpdb;
+
+
+		$books_data = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * from ".$this->table_activator->wp_owt_tbl_books()." ORDER BY id DESC",""
+			)
+			);
+
+			//echo "<pre>";
+			//print_r($books_data);
+
 		ob_start();    // Started buffer
 		include_once(WORDPRESSBOILER_PLUGIN_PATH."admin/partials/tmpl-list-books.php"); // included template file
 	    $template =	ob_get_contents();  // reading content
@@ -319,6 +331,7 @@ class Wordpressboiler_Admin {
 					"name" => strtolower($txt_name),
 					"amount" => $txt_cost,
 					"description" => $text_description,
+					"publication" => $txt_publication,
 					"email" => $txt_email,
 					"shelf_id" => $shelf_id,
 					"book_image" => $book_cover_image,
