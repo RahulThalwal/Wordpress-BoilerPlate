@@ -8,6 +8,7 @@
                     <tr>
                         <th>#ID</th>
                         <th>Name</th>
+                        <th>Shelf Name</th>
                         <th>Email</th>
                         <th>Publication</th>
                         <th>Book Image</th>
@@ -24,6 +25,7 @@
                     <tr>
                         <td><?php echo $value->id; ?> </td>
                         <td><?php echo strtoupper($value->name) ; ?> </td>
+                        <td><?php echo !empty($value->shelf_name) ? $value->shelf_name : "<i>NO Shelf</i>"; ?> </td>
                         <td><?php echo $value->email; ?> </td>
                         <td><?php echo !empty($value->publication) ? $value->publication : "<i> No Publication <i/>"  ; ?> </td>
                         <td>
@@ -54,6 +56,7 @@
                     <tr>
                         <th>#ID</th>
                         <th>Name</th>
+                        <th>Shelf Name</th>
                         <th>Email</th>
                         <th>Publication</th>
                         <th>Book Image</th>
