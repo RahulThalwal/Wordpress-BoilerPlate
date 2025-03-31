@@ -11,6 +11,40 @@ jQuery(function(){
 	}
 
 
+	// delete book row
+
+	jQuery(document).on("click", ".btn-delete-book", function(){
+
+		var book_row_id = jQuery(this).attr("data-id");
+
+		var conf = confirm("Are you sure want to delete ? ");
+
+		if(conf){
+			var postdata = "action=admin_ajax_request&param=delete_book&book_id=" + book_row_id;
+
+		jQuery.post(ajaxurl, postdata, function(response){
+			
+			var data = jQuery.parseJSON(response);
+			
+			console.log(data);
+			if(data.status == 1){
+				alert(data.message);
+
+				setTimeout(function(){
+					location.reload();
+				}, 1000);
+			} else{
+				alert(data.message);
+			}
+		});
+
+
+		}
+
+		
+
+	});
+
 	jQuery(document).on("click", "#txt_image", function(){
 
 		var image = wp.media({

@@ -44,7 +44,7 @@
                         <td><?php echo $value->amount; ?> </td>
                         <td><?php echo $value->status == 1 ? "<button class= 'btn btn-success'>Active</button>":"<button class= 'btn btn-danger'>Inactive</button>"; ?></td>
                         <td>
-                            <button class="btn btn-danger" >Delete</button>
+                            <button class="btn btn-danger btn-delete-book" data-id="<?php echo $value->id; ?>" >Delete</button>
                          </td>
                     </tr>
                     <?php
