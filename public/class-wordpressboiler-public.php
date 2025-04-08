@@ -100,4 +100,19 @@ class Wordpressboiler_Public {
 
 	}
 
+	public function our_own_custom_template() {
+		global $post;
+	
+		if ( isset( $post ) && $post->post_name === 'book-tool' ) {
+			// Output your custom content and stop everything else
+			status_header( 200 );
+			//nocache_headers();
+			$page_template = WORDPRESSBOILER_PLUGIN_PATH."public/partials/book-tool-layout.php";
+			
+		};
+	
+		return $page_template;
+	}
+
+
 }
