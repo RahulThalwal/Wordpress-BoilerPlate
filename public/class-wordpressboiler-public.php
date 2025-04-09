@@ -98,6 +98,12 @@ class Wordpressboiler_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wordpressboiler-public.js', array( 'jquery' ), $this->version, false );
 
+		wp_localize_script($this->plugin_name, "owt_book", array(
+			"name" => "Infinity",
+			"author" => "Plus Infinity",
+			"ajaxurl" => admin_url("admin-ajax.php")
+		));
+
 	}
 
 	public function our_own_custom_template() {
@@ -127,5 +133,23 @@ class Wordpressboiler_Public {
 		ob_get_clean();
 
 		echo $template;
+
+	}
+
+	public function handle_ajax_request_public(){
+
+		$param = isset($_REQUEST['param']) ? $_REQUEST['param'] : "";
+
+		if(!empty($param)){
+
+			if($param == "first_ajax_request"){
+				echo json_encode(array(
+					"status" => 1,
+					"message"=> "Successfully completed first ajax from frontend"
+				));
+			}
+		}
+
+		wp_die();
 	}
 }
