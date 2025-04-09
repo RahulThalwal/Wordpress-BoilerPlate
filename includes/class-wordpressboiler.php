@@ -183,6 +183,8 @@ class Wordpressboiler {
 		// filter for page template
 		$this->loader->add_filter("page_template", $plugin_public, "our_own_custom_template");
 
+		add_shortcode("render-my-content",array($plugin_public,"load_book_tool_content"));
+
 	}
 
 	/**

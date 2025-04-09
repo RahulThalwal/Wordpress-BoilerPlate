@@ -115,4 +115,17 @@ class Wordpressboiler_Public {
 	}
 
 
+	public function load_book_tool_content(){
+
+
+		ob_start();
+
+		include_once WORDPRESSBOILER_PLUGIN_PATH.'public/partials/tmpl-book-tool-content.php';
+
+
+		$template = ob_get_contents();
+		ob_get_clean();
+
+		echo $template;
+	}
 }

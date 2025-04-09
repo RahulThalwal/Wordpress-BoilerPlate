@@ -1,7 +1,9 @@
 <?php
-get_header()?>;
+get_header();
 
-<h3> Simple messge for this page </h3>
-<?php
+// adding shortcode to the page
+// used to render content of shortcode
+do_shortcode("[render-my-content]");
+
  get_footer();
 ?>
